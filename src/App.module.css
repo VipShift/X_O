@@ -1,0 +1,124 @@
+.app {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.error {
+  color: var(--error-color);
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
+.page-heading {
+  margin: 0 0 0.5rem;
+  font-size: 28px;
+  font-weight: 700;
+  color: #222;
+}
+
+.no-margin-text {
+   font-size: 22px;
+  font-weight: bold;
+  margin: 0 0 0.2rem;
+  color: #222;
+  text-align: center;
+}
+
+.current-value {
+  font-weight: bold;
+  margin-left: 6px;
+  color: #0077cc;
+}
+
+.buttons-container {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.button {
+  padding: 0.5em 1em;
+  background-color: hsl(
+    var(--accent-color-hue),
+    var(--accent-color-saturation),
+    92%
+  );
+  font-size: 16px;
+  font-weight: 500;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.15s ease, transform 0.1s ease;
+}
+
+.button:hover {
+  background-color: hsl(
+    var(--accent-color-hue),
+    var(--accent-color-saturation),
+    87%
+  );
+  transform: translateY(-1px);
+}
+
+.button:active {
+  background-color: hsl(
+    var(--accent-color-hue),
+    var(--accent-color-saturation),
+    82%
+  );
+  transform: translateY(0);
+}
+
+.button:disabled {
+  background-color: var(--disabled-color);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.list-container {
+  margin-top: 2rem;
+}
+
+.list-heading {
+  font-size: 22px;
+  font-weight: bold;
+  margin: 0 0 0.2rem;
+  color: #222;
+  text-align: center;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  max-width: 400px;
+  text-align: left;
+}
+
+.list-item {
+  background-color: #ffffff;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 15px;
+  color: #333;
+}
+
+.list-item:not(:last-child) {
+  margin-bottom: 0.5em;
+}
+
+.list-item-time {
+  font-size: 12px;
+  color: #888;
+}

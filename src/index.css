@@ -1,0 +1,40 @@
+:root {
+  --accent-color-hue: 210;
+  --accent-color-saturation: 100%;
+  --error-color: #d32f2f;
+  --disabled-color: #ccc;
+  --font-family: 'Segoe UI', Roboto, sans-serif;
+  --text-color: #222;
+}
+
+/* Убираем отступы и настраиваем шрифт */
+body {
+  margin: 0;
+  font-family: var(--font-family);
+  color: var(--text-color);
+  line-height: 1.5;
+
+  /* 👇 Фон под стеклом */
+  background: linear-gradient(135deg, #74ebd5 0%, #9face6 100%);
+  background-attachment: fixed;
+  background-size: cover;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+/* 👇 Стеклянная обёртка */
+.glass-wrapper {
+  background: rgba(255, 255, 255, 0.15);         /* Прозрачность */
+  border-radius: 16px;
+  padding: 2rem;
+  backdrop-filter: blur(20px);                   /* Эффект блюра */
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);     /* Объём и тень */
+  border: 1px solid rgba(255, 255, 255, 0.18);    /* Лёгкая окантовка */
+  max-width: 700px;
+  width: 100%;
+}
