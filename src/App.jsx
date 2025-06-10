@@ -1,85 +1,87 @@
+import React from 'react';
+import styles from './app.module.css';
+import data from './data.json';
 import { useState } from 'react';
-import styles from './App.module.css';
 
-function App() {
-  const [value, setValue] = useState('');
-  const [list, setList] = useState([]);
-  const [error, setError] = useState('');
+export const App = () => {
+  // Состояния: список шагов и текущий активный шаг
+  const [steps] = useState(data);
+  const [activeIndex, setActiveIndex] = useState(0);
 
-  function onInputButtonClick() {
-    const userInput = prompt('Введите значение');
-    if (userInput !== null) {
-      const promtValue = userInput.trim();
+  // Проверяем первый и последний шаг
+  const isFirstStep = activeIndex === 0;
+  const isLastStep = activeIndex === steps.length - 1;
 
-      if (promtValue.length < 3) {
-        setError('Введенное значение должно содержать минимум 3 символа');
-        setValue('');
-      } else {
-        setValue(promtValue);
-        console.log(promtValue);
-        setError('');
-      }
+  // Обработчик кнопки "Назад"
+  const handlePrev = () => {
+    if (!isFirstStep) {
+      setActiveIndex(activeIndex - 1);
     }
-  }
-  const isValueValid = value.trim().length >= 3;
+  };
 
-  function onAddButtonClick() {
-    if (isValueValid) {
-      const newItem = {
-        id: Date.now(),
-        value: value,
-        time: new Date().toLocaleString('ru-RU'),
-      };
-
-      setList((prevList) => [...prevList, newItem]);
-      setValue('');
-      setError('');
+  // Обработчик кнопки "Далее" или "Начать сначала"
+  const handleNextOrRestart = () => {
+    if (isLastStep) {
+      setActiveIndex(0);
+    } else {
+      setActiveIndex(activeIndex + 1);
     }
-  }
+  };
+
+  // Обработчик клика по кнопке шага
+  const handleStepClick = (index) => {
+    setActiveIndex(index);
+  };
 
   return (
-    <>
-      <div className="glass-wrapper">
-        <div className={styles.app}>
-          <h1 className={styles['page-heading']}>Ввод значения</h1>
-          <p className={styles['no-margin-text']}>
-            Текущее значение <code>value</code>:
-            <output className={styles['current-value']}>{value}</output>
-          </p>
-          {error !== '' && <div className={styles.error}>{error}</div>}
-        </div>
+    <div className={styles.container}>
+      <div className={styles.card}>
+        <h1>Инструкция по готовке пельменей</h1>
+        <div className={styles.steps}>
+          <div className={styles['steps-content']}>
+            {steps[activeIndex].content}
+          </div>
+          <ul className={styles['steps-list']}>
+            {steps.map((step, index) => {
+              let stepClass = styles['steps-item'];
 
-        <div className={styles['buttons-container']}>
-          <button className={styles.button} onClick={onInputButtonClick}>
-            Ввести новое
-          </button>
-          <button
-            className={styles.button}
-            onClick={onAddButtonClick}
-            disabled={!isValueValid}
-          >
-            Добавить в список
-          </button>
-        </div>
-        <div className={styles['list-container']}>
-          <h2 className={styles['list-heading']}>Список</h2>
-          {list.length === 0 ? (
-            <p className={styles['no-margin-text']}>
-              Нет добавленных елементов
-            </p>
-          ) : (
-            <ul className={styles['list']}>
-              {list.map((item) => (
-                <li key={item.id} className={styles['list-item']}>
-                  <span>{item.value}</span>
-                  <span className={styles['list-item-time']}>{item.time}</span>
+              if (index < activeIndex) {
+                stepClass += ' ' + styles.done;
+              }
+              if (index === activeIndex) {
+                stepClass += ' ' + styles.active + ' ' + styles.done;
+              }
+
+              return (
+                <li
+                  key={step.id}
+                  className={stepClass}
+                  onClick={() => handleStepClick(index)}
+                >
+                  <button className={styles['steps-item-button']}>
+                    {index + 1}
+                  </button>
+                  Шаг {index + 1}
                 </li>
-              ))}
-            </ul>
-          )}
+              );
+            })}
+          </ul>
+
+          <div className={styles['buttons-container']}>
+            <button
+              className={styles.button}
+              onClick={handlePrev}
+              disabled={isFirstStep}
+            >
+              Назад
+            </button>
+            {/* Кнопка Далее или Начать сначала */}
+            <button className={styles.button} onClick={handleNextOrRestart}>
+              {isLastStep ? 'Начать сначала' : 'Далее'}
+            </button>
+          </div>
         </div>
       </div>
-    </>
+    </div>
   );
-}
-export default App;
+};
