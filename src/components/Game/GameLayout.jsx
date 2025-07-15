@@ -4,14 +4,14 @@ import Field from '../Field/Field';
 import styles from './Game.module.css';
 import PropTypes from 'prop-types';
 
-const GameLayout = ({
+export default function GameLayout({
   currentPlayer,
   field,
   isGameEnded,
   isDraw,
   onCellClick,
   onRestart,
-}) => {
+}) {
   return (
     <div className={styles.container}>
       <h1>Крестики-Нолики</h1>
@@ -26,7 +26,7 @@ const GameLayout = ({
       </button>
     </div>
   );
-};
+}
 
 GameLayout.propTypes = {
   currentPlayer: PropTypes.string.isRequired,
@@ -36,5 +36,3 @@ GameLayout.propTypes = {
   onCellClick: PropTypes.func.isRequired,
   onRestart: PropTypes.func.isRequired,
 };
-
-export default GameLayout;
