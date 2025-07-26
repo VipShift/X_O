@@ -16,19 +16,19 @@ const WIN_PATTERNS = [
   [2, 4, 6],
 ];
 
-export const reducer = (state = initialState, { type, payload }) => {
-  switch (type) {
+export const reducer = (state = initialState, action) => {
+  switch (action.type) {
     case 'CLICK_CELL': {
-      if (state.isGameEnded || state.field[payload]) return state;
+      if (state.isGameEnded || state.field[action.payload]) return state;
 
       const field = state.field.slice();
-      field[payload] = state.currentPlayer;
+      field[action.payload] = state.currentPlayer;
 
-      const isWin = WIN_PATTERNS.some((pattern) =>
-        pattern.every((i) => field[i] === state.currentPlayer)
+      const isWin = WIN_PATTERNS.some(pattern =>
+        pattern.every(i => field[i] === state.currentPlayer)
       );
 
-      const isDraw = !isWin && field.every((cell) => cell !== '');
+      const isDraw = !isWin && field.every(cell => cell !== '');
 
       return {
         ...state,
